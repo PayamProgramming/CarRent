@@ -4,7 +4,7 @@ import java.util.List;
 public class User {
 
     private String username ;
-    private List <Cars> RentedCars = new ArrayList();
+    private List <Cars> RentedCars = new ArrayList <>();
 
     public String getUsername() {
         return username;
@@ -18,6 +18,7 @@ public class User {
         return RentedCars;
     }
 
+    //////////////// To Add Cars+
     public boolean AddCars(Cars Car) {
         if(RentedCars.size() > 2) {
             System.out.println("You Cannot Rent 3 Cars");
@@ -29,25 +30,19 @@ public class User {
         }
     }
 
-    public Cars RemoveCar(int index){
-        Cars cars = RentedCars.get(index-1);
-        RentedCars.remove(index-1);
-        return cars;
-    }
-
     public void setRentedCars(List<Cars> rentedcars) {
         RentedCars = rentedcars;
     }
 
     @Override
     public String toString() {
-        String data = "";
-        data += "username : "+username+" -- ";
-        data += " Rented Cars : ";
+        StringBuilder data = new StringBuilder();
+        data.append("username : ").append(username).append(" -- ");
+        data.append(" Rented Cars : ");
         for(Cars cars : RentedCars){
-            data+=cars.getSerialNumber()+",";
+            data.append(cars.getSerialNumber()).append(",");
         }
-        return data;
+        return data.toString();
     }
 
 

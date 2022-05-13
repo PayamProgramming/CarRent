@@ -10,8 +10,9 @@ public class Cars {
         else generateSerialNumber("BE-C");
     }
 
-    private void generateSerialNumber(String Code) {
-        SerialNumber = Code;
+    /////////////To Generate A SerialNumber
+    private void generateSerialNumber(String serialnumber) {
+        SerialNumber = serialnumber;
     }
 
 
@@ -25,10 +26,6 @@ public class Cars {
 
     public String getSerialNumber() {
         return SerialNumber;
-    }
-
-    public void setSerialNumber(String serialNumber) {
-        SerialNumber = serialNumber;
     }
 
     @Override

@@ -1,9 +1,2 @@
-FO-C;true;
-FO-C;true;
-BE-C;true;
-FO-C;false;
-BE-C;false;
-BE-C;false;
-BE-C;false;
 FO-C;false;
 FO-C;false;
