@@ -20,7 +20,8 @@ public class Main {
         System.out.println("6.Add New User");
         System.out.println("7.Cars List");
         System.out.println("8.Users List");
-        System.out.println("9.Exit");
+        System.out.println("9.Exit & Save");
+        System.out.println("10.How Many Users Are Renting Cars");
         System.out.println("Choose The Number You Want : ");
         int num = in.nextInt();
         switch (num) {
