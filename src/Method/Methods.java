@@ -1,3 +1,10 @@
+package Method;
+
+import Pojo.Benz;
+import Pojo.Car;
+import Pojo.Ford;
+import Pojo.User;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,7 +16,7 @@ import java.util.StringTokenizer;
 
 public class Methods {
 
-    static List <Cars> CarsList = new ArrayList <>();
+    static List <Car> carList = new ArrayList <>();
     static List <User> UsersList = new ArrayList <>();
 
 
@@ -22,7 +29,7 @@ public class Methods {
 
     static void Exit() {
         SaveUserToFile();
-        SaveBikeToFile();
+        SaveCarToFile();
     }
 
     static void UsersList() {
@@ -36,8 +43,8 @@ public class Methods {
 
     static void CarsList() {
         int count = 1;
-        for (Cars cars : CarsList) {
-            System.out.println(count + "." + cars.toString());
+        for (Car car : carList) {
+            System.out.println(count + "." + car.toString());
             count++;
         }
         Main.Menu();
@@ -61,20 +68,18 @@ public class Methods {
         System.out.println("2.Benz");
         int car = input.nextInt();
         if (car == 1) {
-            CarsList.add(new Ford());
+            carList.add(new Ford());
             System.out.println("Ford Added .");
         } else if (car == 2) {
-            CarsList.add(new Benz());
+            carList.add(new Benz());
             System.out.println("Benz Added .");
         } else
             System.out.println("Car Doesnt Exist");
         Main.Menu();
     }
 
-    static void RentCars() {
-        Scanner input = new Scanner(System.in);
+    static void RentCars(String username) {
         System.out.println("Enter Username : ");
-        String username = input.nextLine();
         if (ValidateUsername(username)) {
             BenzCount();
             FordCount();
@@ -91,18 +96,17 @@ public class Methods {
 
         } else System.out.println("Username Doesnt Exist");
         Main.Menu();
-
     }
 
 
     static void RentedCars() {
         int count = 0;
-        for (Cars cars : CarsList) {
-            if (cars.isRented()) {
-                if (cars instanceof Ford) {
-                    System.out.println(count + ".Ford = " + cars.getSerialNumber());
-                } else if (cars instanceof Benz) {
-                    System.out.println(count + ".Benz = " + cars.getSerialNumber());
+        for (Car car : carList) {
+            if (car.isRented()) {
+                if (car instanceof Ford) {
+                    System.out.println(count + ".Ford = " + car.getSerialNumber());
+                } else if (car instanceof Benz) {
+                    System.out.println(count + ".Benz = " + car.getSerialNumber());
                 }
                 count++;
             }
@@ -114,12 +118,12 @@ public class Methods {
 
     static void AvailableCars() {
         int count = 1;
-        for (Cars cars : CarsList) {
-            if (!cars.isRented()) {
-                if (cars instanceof Ford) {
-                    System.out.println(count + ".Ford = " + cars.getSerialNumber());
-                } else if (cars instanceof Benz) {
-                    System.out.println(count + ".Benz = " + cars.getSerialNumber());
+        for (Car car : carList) {
+            if (!car.isRented()) {
+                if (car instanceof Ford) {
+                    System.out.println(count + ".Ford = " + car.getSerialNumber());
+                } else if (car instanceof Benz) {
+                    System.out.println(count + ".Benz = " + car.getSerialNumber());
                 }
                 count++;
             }
@@ -128,7 +132,7 @@ public class Methods {
         Main.Menu();
     }
 
-    private static boolean ValidateUsername(String username) {
+    public static boolean ValidateUsername(String username) {
         for (User user : UsersList)
             if (user.getUsername().equals(username)) {
                 return true;
@@ -139,8 +143,8 @@ public class Methods {
 
     private static int BenzCount() {
         int count = 0;
-        for (Cars cars : CarsList)
-            if (cars instanceof Benz && !cars.isRented()) {
+        for (Car car : carList)
+            if (car instanceof Benz && !car.isRented()) {
                 count++;
             }
         return count;
@@ -148,17 +152,17 @@ public class Methods {
 
     private static int FordCount() {
         int count = 0;
-        for (Cars cars : CarsList)
-            if (cars instanceof Ford && !cars.isRented()) {
+        for (Car car : carList)
+            if (car instanceof Ford && !car.isRented()) {
                 count++;
             }
         return count;
     }
 
-    private static void RentBenz(String username) {
+    public static void RentBenz(String username) {
 
         boolean check = false;
-        for (Cars car : CarsList) {
+        for (Car car : carList) {
             if (car instanceof Benz && !car.isRented()) {
                 car.setRented(true);
                 for (User user : UsersList) {
@@ -176,7 +180,7 @@ public class Methods {
 
     private static void RentFord(String username) {
         boolean check = false;
-        for (Cars car : CarsList) {
+        for (Car car : carList) {
             if (car instanceof Ford && !car.isRented()) {
                 car.setRented(true);
                 for (User user : UsersList) {
@@ -192,10 +196,10 @@ public class Methods {
         }
     }
 
-    private static void SaveBikeToFile() {
+    private static void SaveCarToFile() {
         try {
             FileWriter file = new FileWriter("CarInfo.txt");
-            for (Cars car : CarsList) {
+            for (Car car : carList) {
                 file.write(car.getSerialNumber() + ";" + car.isRented() + ";\n");
             }
             file.close();
@@ -209,7 +213,7 @@ public class Methods {
             FileWriter file = new FileWriter("UserInfo.txt");
             for (User user : UsersList) {
                 StringBuilder info = new StringBuilder(user.getUsername() + ";");
-                for (Cars car : user.getRentedCars()) {
+                for (Car car : user.getRentedCars()) {
                     info.append(car.getSerialNumber()).append(";").append(car.isRented()).append(";");
                 }
                 file.write(info + "\n");
@@ -230,13 +234,13 @@ public class Methods {
                 StringTokenizer tokens = new StringTokenizer(line, ";");
                 String serialNumber = tokens.nextToken();
                 if (serialNumber.equals("FO-C")) {
-                    Cars ford = new Ford();
+                    Car ford = new Ford();
                     ford.setRented(Boolean.parseBoolean(tokens.nextToken()));
-                    CarsList.add(ford);
+                    carList.add(ford);
                 } else {
-                    Cars benz = new Benz();
+                    Car benz = new Benz();
                     benz.setRented(Boolean.parseBoolean(tokens.nextToken()));
-                    CarsList.add(benz);
+                    carList.add(benz);
                 }
             }
             file.close();
@@ -255,17 +259,17 @@ public class Methods {
                 StringTokenizer tokens = new StringTokenizer(line, ";");
                 User user = new User();
                 user.setUsername(tokens.nextToken());
-                List <Cars> supercarList = new ArrayList <>();
+                List <Car> supercarList = new ArrayList <>();
                 while (tokens.hasMoreTokens()) {
                     String serialNumber = tokens.nextToken();
                     if (serialNumber.equals("FO-C")) {
-                        Cars ford = new Ford();
+                        Car ford = new Ford();
                         ford.setRented(Boolean.parseBoolean(tokens.nextToken()));
-                        CarsList.add(ford);
+                        carList.add(ford);
                     } else {
-                        Cars benz = new Benz();
+                        Car benz = new Benz();
                         benz.setRented(Boolean.parseBoolean(tokens.nextToken()));
-                        CarsList.add(benz);
+                        carList.add(benz);
                     }
                 }
                 user.setRentedCars(supercarList);

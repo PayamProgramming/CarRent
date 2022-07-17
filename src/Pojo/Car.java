@@ -1,11 +1,11 @@
+package Pojo;
 
-
-public class Cars {
+public class Car {
 
     private boolean IsRented ;
     private String SerialNumber ;
 
-    public Cars() {
+    public Car() {
         if(this instanceof Ford) generateSerialNumber("FO-C");
         else generateSerialNumber("BE-C");
     }
@@ -30,7 +30,7 @@ public class Cars {
 
     @Override
     public String toString() {
-        return "Cars{" +
+        return "Users.Car{" +
                 "IsRented=" + IsRented +
                 ", SerialNumber='" + SerialNumber + '\'' +
                 '}';
