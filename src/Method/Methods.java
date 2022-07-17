@@ -78,8 +78,10 @@ public class Methods {
         Main.Menu();
     }
 
-    static void RentCars(String username) {
+    static void RentCars() {
+        Scanner input = new Scanner(System.in);
         System.out.println("Enter Username : ");
+        String username = input.nextLine();
         if (ValidateUsername(username)) {
             BenzCount();
             FordCount();

@@ -21,7 +21,6 @@ public class Main {
         System.out.println("7.Cars List");
         System.out.println("8.Users List");
         System.out.println("9.Exit & Save");
-        System.out.println("10.How Many Users Are Renting Cars");
         System.out.println("Choose The Number You Want : ");
         int num = in.nextInt();
         switch (num) {
@@ -35,7 +34,7 @@ public class Main {
                 Method.Methods.LoadData();
                 break;
             case 4:
-                Method.Methods.RentCars("a");
+                Method.Methods.RentCars();
                 break;
             case 5:
                 Method.Methods.AddCar();
